@@ -5,6 +5,16 @@
   "main": "dist/md-editor.js",
   "module": "dist/md-editor.esm.js",
   "browser": "dist/md-editor.min.js",
+  "typings": "src/ts/types/index.d.ts",
+  "files": [
+    "dist/*.js",
+    "src/ts/types"
+  ],
+  "keywords": [
+    "markdown",
+    "md",
+    "editor"
+  ],
   "scripts": {
     "serve": "rollup -c rollup.config.dev.js -w",
     "build": "rollup -c"
