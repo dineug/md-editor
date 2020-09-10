@@ -2,11 +2,12 @@ import pkg from "./package.json";
 import config from "./rollup.config.common";
 import { terser } from "rollup-plugin-terser";
 import visualizer from "rollup-plugin-visualizer";
+import strip from "@rollup/plugin-strip";
 
 const { plugins, banner } = config();
 
 export default {
-  input: "src/ts/index.ts",
+  input: "src/index.ts",
   output: [
     {
       name: "MDEditor",
@@ -32,5 +33,12 @@ export default {
       banner,
     },
   ],
-  plugins,
+  plugins: [
+    strip({
+      debugger: true,
+      include: "**/*.ts",
+      functions: ["Logger.debug"],
+    }),
+    ...plugins,
+  ],
 };

@@ -6,7 +6,7 @@ import html from "rollup-plugin-generate-html-template";
 const { plugins, banner } = config();
 
 export default {
-  input: "src/ts/index.dev.ts",
+  input: "src/index.dev.ts",
   output: {
     name: "MDEditor",
     file: pkg.main,

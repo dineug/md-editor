@@ -21,11 +21,7 @@ export class MDEditorElement extends HTMLElement {
   }
 
   styled() {
-    const styled = /*css*/ `
-      :host {
-        --md-editor-font-family: "Noto Sans", sans-serif;
-      }
-    `;
+    const styled = /*css*/ ``;
     this.styleSheet.textContent = styled;
   }
 }

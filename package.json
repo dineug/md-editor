@@ -1,19 +1,20 @@
 {
-  "name": "md-editor",
+  "name": "@dineug/md-editor",
   "version": "0.1.0",
   "description": "Markdown Editor",
   "main": "dist/md-editor.js",
   "module": "dist/md-editor.esm.js",
   "browser": "dist/md-editor.min.js",
-  "typings": "src/ts/types/index.d.ts",
+  "typings": "./types/index.d.ts",
   "files": [
     "dist/*.js",
-    "src/ts/types"
+    "types"
   ],
   "keywords": [
     "markdown",
     "md",
-    "editor"
+    "editor",
+    "md-editor"
   ],
   "scripts": {
     "serve": "rollup -c rollup.config.dev.js -w",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
+    "@rollup/plugin-strip": "^2.0.0",
     "@rollup/plugin-typescript": "^5.0.2",
     "@typescript-eslint/eslint-plugin": "^4.1.0",
     "@typescript-eslint/parser": "^4.1.0",
