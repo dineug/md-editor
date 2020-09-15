@@ -1,2 +1,2 @@
-export { MDEditorElement } from "./components/MDEditorElement";
-export { MDEditor } from "./components/MDEditor";
+import "./components/MDEditorElement";
+export { use } from "./core/plugin";

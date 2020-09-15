@@ -8,7 +8,7 @@ const { plugins, banner } = config();
 export default {
   input: "src/index.dev.ts",
   output: {
-    name: "MDEditor",
+    name: "MDE",
     file: pkg.main,
     format: "umd",
     plugins: [

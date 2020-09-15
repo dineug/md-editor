@@ -10,13 +10,13 @@ export default {
   input: "src/index.ts",
   output: [
     {
-      name: "MDEditor",
+      name: "MDE",
       file: pkg.main,
       format: "umd",
       banner,
     },
     {
-      name: "MDEditor",
+      name: "MDE",
       file: pkg.browser,
       format: "umd",
       plugins: [

@@ -1,7 +1,9 @@
 import { h, render } from "preact";
+import { use } from "@src/core/plugin";
+import { builtin } from "./builtin";
 import { MDEditor } from "./MDEditor";
 
-export class MDEditorElement extends HTMLElement {
+class MDEditorElement extends HTMLElement {
   renderRoot!: ShadowRoot;
   styleSheet!: HTMLStyleElement;
   container!: HTMLDivElement;
@@ -26,4 +28,5 @@ export class MDEditorElement extends HTMLElement {
   }
 }
 
+use(...builtin());
 customElements.define("md-editor", MDEditorElement);

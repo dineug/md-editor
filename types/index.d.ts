@@ -1,20 +1,32 @@
-export interface ContainerEditor<P = {}> {
-  viewer(value: P): HTMLElement;
-  editor(value: P): HTMLElement;
-  save(): P;
+export interface ContainerEditor<T = {}> {
+  viewer(): HTMLElement;
+  editor(): HTMLElement;
+  save(): T;
 }
 
-export interface ContainerEditorClass<P = {}> {
-  new (): ContainerEditor<P>;
+export interface ContainerEditorClass<T = {}> {
+  new (props: T): ContainerEditor<T>;
 }
 
-export type ContainerData<P = {}> = P;
+export interface ContainerEditorOptions<T = {}> {
+  type: string;
+  name: string;
+  editor: ContainerEditorClass<T>;
+  defaultProps(): T;
+}
 
-export interface OutputContainerData {
+export interface ContainerEditorInstance {
+  id: string;
+  editor: ContainerEditor;
+}
+
+export type ContainerData<T = {}> = T;
+
+export interface ContainerEditorData {
   type: string;
   data: ContainerData;
 }
 
-export interface OutputData {
-  containers: OutputContainerData[];
+export interface EditorData {
+  containers: ContainerEditorData[];
 }
