@@ -1,11 +1,11 @@
-import { EditorManager, createEditorManager } from "./editorManager";
+import { ContainerManager, createContainerManager } from "./containerManager";
 
 export interface EditorContext {
-  editorManager: EditorManager;
+  containerManager: ContainerManager;
 }
 
 export function createEditorContext(): EditorContext {
   return {
-    editorManager: createEditorManager(),
+    containerManager: createContainerManager(),
   };
 }

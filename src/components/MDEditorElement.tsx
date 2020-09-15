@@ -4,9 +4,9 @@ import { builtin } from "./builtin";
 import { MDEditor } from "./MDEditor";
 
 class MDEditorElement extends HTMLElement {
-  renderRoot!: ShadowRoot;
-  styleSheet!: HTMLStyleElement;
-  container!: HTMLDivElement;
+  renderRoot: ShadowRoot;
+  styleSheet: HTMLStyleElement;
+  container: HTMLDivElement;
 
   constructor() {
     super();

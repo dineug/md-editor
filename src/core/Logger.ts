@@ -1,14 +1,14 @@
 export const Logger = {
-  debug(...args: any[]) {
+  debug(...args: Array<any>) {
     console.dir(...args);
   },
-  log(...args: any[]) {
+  log(...args: Array<any>) {
     console.log(...args);
   },
-  warn(...args: any[]) {
+  warn(...args: Array<any>) {
     console.warn(...args);
   },
-  error(...args: any[]) {
+  error(...args: Array<any>) {
     console.error(...args);
   },
 };

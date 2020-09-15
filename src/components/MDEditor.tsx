@@ -13,7 +13,7 @@ export function MDEditor() {
     const editorContext = createEditorContext();
     const container = getEditor("Heading");
     if (container) {
-      editorContext.editorManager.add(
+      editorContext.containerManager.add(
         new container.editor(container.defaultProps())
       );
     }

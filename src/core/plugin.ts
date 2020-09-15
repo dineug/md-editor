@@ -10,6 +10,6 @@ export function getEditor(type: string): ContainerEditorOptions | undefined {
   return editors.find((editor) => editor.type === type);
 }
 
-export function getEditors(): ContainerEditorOptions[] {
+export function getEditors(): Array<ContainerEditorOptions> {
   return editors;
 }

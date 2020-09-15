@@ -17,7 +17,7 @@ export interface ContainerEditorOptions<T = {}> {
 
 export interface ContainerEditorInstance {
   id: string;
-  editor: ContainerEditor;
+  container: ContainerEditor;
 }
 
 export type ContainerData<T = {}> = T;
