@@ -6,30 +6,30 @@ export interface HeadingProps {
 }
 
 export class Heading implements ContainerEditor<HeadingProps> {
-  viewerElement: HTMLElement;
-  editorElement: HTMLInputElement;
-  level: number;
-  text: string;
+  #viewerElement: HTMLElement;
+  #editorElement: HTMLInputElement;
+  #level: number;
+  #text: string;
 
   constructor(props: HeadingProps) {
-    this.level = props.level;
-    this.text = props.text;
-    this.viewerElement = document.createElement(`h${props.level}`);
-    this.editorElement = document.createElement("input");
+    this.#level = props.level;
+    this.#text = props.text;
+    this.#viewerElement = document.createElement(`h${props.level}`);
+    this.#editorElement = document.createElement("input");
   }
 
   viewer() {
-    this.viewerElement.textContent = this.text;
-    return this.viewerElement;
+    this.#viewerElement.textContent = this.#text;
+    return this.#viewerElement;
   }
   editor() {
-    this.editorElement.value = this.text;
-    return this.editorElement;
+    this.#editorElement.value = this.#text;
+    return this.#editorElement;
   }
   save() {
     return {
-      level: this.level,
-      text: this.text,
+      level: this.#level,
+      text: this.#text,
     };
   }
 }

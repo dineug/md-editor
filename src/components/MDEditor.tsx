@@ -1,23 +1,23 @@
 import { h } from "preact";
 import { useRef, useEffect } from "preact/hooks";
 import { Logger } from "@src/core/logger";
-import { getEditor } from "@src/core/plugin";
-import { createEditorContext } from "@src/core/editorContext";
+import { useContainerManager } from "@src/core/containerManager";
+import { Container } from "./Container";
 
 export function MDEditor() {
-  const root = useRef<HTMLDivElement>(null);
   Logger.debug("MDEditor");
+  const root = useRef<HTMLDivElement>(null);
+  const { containers } = useContainerManager();
 
   useEffect(() => {
     Logger.debug("MDEditor useEffect");
-    const editorContext = createEditorContext();
-    const container = getEditor("Heading");
-    if (container) {
-      editorContext.containerManager.add(
-        new container.editor(container.defaultProps())
-      );
-    }
   }, []);
 
-  return <div ref={root} />;
+  return (
+    <div ref={root}>
+      {containers.map((container) => (
+        <Container key={container.id} {...container}></Container>
+      ))}
+    </div>
+  );
 }

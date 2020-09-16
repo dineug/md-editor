@@ -1,19 +1,35 @@
+import { useState, useEffect } from "preact/hooks";
 import { ContainerEditorInstance, ContainerEditor } from "@type/index";
+import { Logger } from "./logger";
 import { uuid } from "./helper";
+import { getEditor } from "./plugin";
 
-export interface ContainerManager {
-  add(container: ContainerEditor): void;
-}
+export function useContainerManager() {
+  Logger.debug("useContainerManager");
+  const [containers, setContainers] = useState<Array<ContainerEditorInstance>>(
+    []
+  );
 
-export function createContainerManager() {
-  const containers: Array<ContainerEditorInstance> = [];
-
-  return {
-    add(container: ContainerEditor) {
-      containers.push({
+  const pushContainer = (container: ContainerEditor) => {
+    setContainers((prevContainers) => [
+      ...prevContainers,
+      {
         id: uuid(),
         container,
-      });
-    },
+      },
+    ]);
+  };
+
+  useEffect(() => {
+    Logger.debug("useContainerManager useEffect");
+    const container = getEditor("Paragraph");
+    if (container) {
+      pushContainer(new container.editor(container.defaultProps()));
+    }
+  }, []);
+
+  return {
+    containers,
+    pushContainer,
   };
 }
