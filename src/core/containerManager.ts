@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
 import { ContainerEditorInstance, ContainerEditor } from "@type/index";
+import { uuid } from "./helper";
 
 export interface ContainerManager {
   add(container: ContainerEditor): void;
@@ -11,7 +11,7 @@ export function createContainerManager() {
   return {
     add(container: ContainerEditor) {
       containers.push({
-        id: uuidv4(),
+        id: uuid(),
         container,
       });
     },

@@ -1,6 +1,6 @@
 import { h, render } from "preact";
 import { use } from "@src/core/plugin";
-import { builtin } from "./builtin";
+import { builtin } from "./plugins/builtin";
 import { MDEditor } from "./MDEditor";
 
 class MDEditorElement extends HTMLElement {

@@ -1,14 +1,14 @@
-export interface ContainerEditor<T = {}> {
+export interface ContainerEditor<T = any> {
   viewer(): HTMLElement;
   editor(): HTMLElement;
   save(): T;
 }
 
-export interface ContainerEditorClass<T = {}> {
+export interface ContainerEditorClass<T = any> {
   new (props: T): ContainerEditor<T>;
 }
 
-export interface ContainerEditorOptions<T = {}> {
+export interface ContainerEditorOptions<T = any> {
   type: string;
   name: string;
   editor: ContainerEditorClass<T>;
@@ -20,7 +20,7 @@ export interface ContainerEditorInstance {
   container: ContainerEditor;
 }
 
-export type ContainerData<T = {}> = T;
+export type ContainerData<T = any> = T;
 
 export interface ContainerEditorData {
   type: string;
@@ -28,5 +28,5 @@ export interface ContainerEditorData {
 }
 
 export interface EditorData {
-  containers: ContainerEditorData[];
+  containers: Array<ContainerEditorData>;
 }

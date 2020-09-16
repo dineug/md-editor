@@ -1,6 +1,6 @@
 import { ContainerEditorOptions } from "@type/index";
 
-const editors: Array<ContainerEditorOptions<any>> = [];
+const editors: Array<ContainerEditorOptions> = [];
 
 export function use<T>(...options: Array<ContainerEditorOptions<T>>) {
   editors.push(...options);
