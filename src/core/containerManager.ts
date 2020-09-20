@@ -11,11 +11,26 @@ export function useContainerManager() {
   );
 
   const pushContainer = (container: ContainerEditor) => {
+    setContainers((prevContainers) => {
+      prevContainers.forEach((prevContainer) => (prevContainer.edit = false));
+      return [
+        ...prevContainers,
+        {
+          id: uuid(),
+          container,
+          edit: true,
+        },
+      ];
+    });
+  };
+
+  const pushOnlyContainer = (container: ContainerEditor) => {
     setContainers((prevContainers) => [
       ...prevContainers,
       {
         id: uuid(),
         container,
+        edit: false,
       },
     ]);
   };
@@ -31,5 +46,6 @@ export function useContainerManager() {
   return {
     containers,
     pushContainer,
+    pushOnlyContainer,
   };
 }

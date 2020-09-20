@@ -10,8 +10,12 @@ export function Container(props: ContainerEditorInstance) {
   useEffect(() => {
     Logger.debug("Container useEffect");
     root.current.innerHTML = "";
-    root.current.appendChild(props.container.viewer());
-  }, [props]);
+    if (props.edit) {
+      root.current.appendChild(props.container.editor());
+    } else {
+      root.current.appendChild(props.container.viewer());
+    }
+  }, [props.edit]);
 
   return <div ref={root} />;
 }

@@ -1,3 +1,16 @@
+export interface MDEditorElement extends HTMLElement {
+  loadJson(json: EditorData): void;
+  saveJson(): EditorData;
+  loadMarkdown(markdown: string): void;
+  saveMarkdown(): string;
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "md-editor": MDEditorElement;
+  }
+}
+
 export interface ContainerEditor<T = any> {
   viewer(): HTMLElement;
   editor(): HTMLElement;
@@ -18,6 +31,7 @@ export interface ContainerEditorOptions<T = any> {
 export interface ContainerEditorInstance {
   id: string;
   container: ContainerEditor;
+  edit: boolean;
 }
 
 export type ContainerData<T = any> = T;

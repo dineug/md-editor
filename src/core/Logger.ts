@@ -1,6 +1,6 @@
 export const Logger = {
   debug(...args: Array<any>) {
-    console.dir(...args);
+    args.forEach((arg) => console.dir(arg));
   },
   log(...args: Array<any>) {
     console.log(...args);

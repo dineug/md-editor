@@ -9,6 +9,7 @@ export class Paragraph implements ContainerEditor<string> {
     this.#value = value;
     this.#viewerElement = document.createElement("p");
     this.#editorElement = document.createElement("input");
+    paragraphStyle(this.#editorElement);
   }
 
   viewer() {
@@ -17,9 +18,28 @@ export class Paragraph implements ContainerEditor<string> {
   }
   editor() {
     this.#editorElement.value = this.#value;
+    setTimeout(() => {
+      this.#editorElement.focus();
+    }, 0);
     return this.#editorElement;
   }
   save() {
     return this.#value;
   }
+}
+
+function paragraphStyle(el: HTMLInputElement) {
+  const { style } = el;
+  el.spellcheck = false;
+  style.outline = "none";
+  style.border = "none";
+  style.width = "100%";
+  style.font = "unset";
+  style.padding = "unset";
+
+  style.display = "block";
+  style.marginBlockStart = "1em";
+  style.marginBlockEnd = "1em";
+  style.marginInlineStart = "0px";
+  style.marginInlineEnd = "0px";
 }
