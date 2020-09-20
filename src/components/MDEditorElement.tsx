@@ -14,7 +14,7 @@ class MDEditorCustomElement extends HTMLElement implements MDEditorElement {
 
   constructor() {
     super();
-    this.#renderRoot = this.attachShadow({ mode: "closed" });
+    this.#renderRoot = this.attachShadow({ mode: "open" });
     this.#styleSheet = document.createElement("style");
     this.#container = document.createElement("div");
     this.#renderRoot.appendChild(this.#styleSheet);
