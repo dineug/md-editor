@@ -1,8 +1,7 @@
-import { useState, useEffect } from "preact/hooks";
+import { useState } from "preact/hooks";
 import { ContainerEditorInstance, ContainerEditor } from "@type/index";
 import { Logger } from "./logger";
 import { uuid } from "./helper";
-import { getEditor } from "./plugin";
 
 export function useContainerManager() {
   Logger.debug("useContainerManager");
@@ -34,14 +33,6 @@ export function useContainerManager() {
       })),
     ]);
   };
-
-  useEffect(() => {
-    Logger.debug("useContainerManager useEffect");
-    const options = getEditor("Paragraph");
-    if (options) {
-      pushContainer(new options.editor(options.defaultProps()));
-    }
-  }, []);
 
   return {
     containers,

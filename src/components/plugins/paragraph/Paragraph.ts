@@ -1,12 +1,14 @@
-import { ContainerEditor } from "@type/index";
+import { ContainerEditor, EditorContext } from "@type/index";
 
 export class Paragraph implements ContainerEditor<string> {
+  #api: EditorContext;
   #viewerElement: HTMLParagraphElement;
   #editorElement: HTMLInputElement;
   #value: string;
   #edit = false;
 
-  constructor(value: string) {
+  constructor(value: string, api: EditorContext) {
+    this.#api = api;
     this.#value = value;
     this.#viewerElement = document.createElement("p");
     this.#editorElement = document.createElement("input");

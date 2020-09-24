@@ -1,4 +1,4 @@
-import { ContainerEditor } from "@type/index";
+import { ContainerEditor, EditorContext } from "@type/index";
 
 export interface HeadingProps {
   level: number;
@@ -6,13 +6,15 @@ export interface HeadingProps {
 }
 
 export class Heading implements ContainerEditor<HeadingProps> {
+  #api: EditorContext;
   #viewerElement: HTMLHeadingElement;
   #editorElement: HTMLInputElement;
   #level: number;
   #text: string;
   #edit = false;
 
-  constructor(props: HeadingProps) {
+  constructor(props: HeadingProps, api: EditorContext) {
+    this.#api = api;
     this.#level = props.level;
     this.#text = props.text;
     this.#viewerElement = document.createElement(

@@ -5,12 +5,11 @@
     "node": true
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["prettier", "@typescript-eslint", "react", "react-hooks"],
+  "plugins": ["prettier", "@typescript-eslint", "react-hooks"],
   "extends": [
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
-    "plugin:react/recommended",
     "plugin:react-hooks/recommended"
   ],
   "settings": {
@@ -33,7 +32,6 @@
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unused-vars": "off",
-    "react-hooks/exhaustive-deps": "off",
-    "react/prop-types": "off"
+    "react-hooks/exhaustive-deps": "off"
   }
 }

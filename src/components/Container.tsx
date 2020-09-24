@@ -23,5 +23,5 @@ export const Container: FunctionalComponent<ContainerEditorInstance> = ({
     }
   }, [edit]);
 
-  return <div ref={rootRef} />;
+  return <div class="mde-container" ref={rootRef} />;
 };

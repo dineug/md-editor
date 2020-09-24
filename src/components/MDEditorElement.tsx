@@ -19,7 +19,7 @@ class MDEditorElement extends HTMLElement implements MDEditorElementInternal {
   #renderRoot: ShadowRoot;
   #styleSheet: HTMLStyleElement;
   #container: HTMLDivElement;
-  #subscriptions: Subscription[] = [];
+  #subscriptions: Array<Subscription> = [];
   _editorContext: EditorContext;
 
   constructor() {
@@ -57,7 +57,17 @@ class MDEditorElement extends HTMLElement implements MDEditorElementInternal {
   }
 
   styled() {
-    const styled = /*css*/ ``;
+    const styled = /*css*/ `
+      .mde-container {
+        position: relative;
+      }
+      .mde-command {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        position: fixed;
+      }
+    `;
     this.#styleSheet.textContent = styled;
   }
 
