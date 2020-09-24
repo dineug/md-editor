@@ -1,12 +1,13 @@
-import { h } from "preact";
+import { h, FunctionalComponent } from "preact";
 import { useRef, useEffect } from "preact/hooks";
 import { Logger } from "@src/core/logger";
 import { useContainerManager } from "@src/core/containerManager";
 import { Container } from "./Container";
+import { Command } from "./Command";
 
-export function MDEditor() {
+export const MDEditor: FunctionalComponent = () => {
   Logger.debug("MDEditor");
-  const root = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
   const { containers } = useContainerManager();
 
   useEffect(() => {
@@ -14,10 +15,11 @@ export function MDEditor() {
   }, []);
 
   return (
-    <div ref={root}>
+    <div ref={rootRef}>
       {containers.map((container) => (
         <Container key={container.id} {...container}></Container>
       ))}
+      <Command x={100} y={100} />
     </div>
   );
-}
+};

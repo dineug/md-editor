@@ -1,31 +1,39 @@
 import { h, render } from "preact";
 import { fromEvent, Subscription } from "rxjs";
-import { MDEditorElement, EditorData } from "@type/index";
+import {
+  MDEditorElement as IMDEditorElement,
+  EditorData,
+  EditorContext,
+} from "@type/index";
+import { createEditorContext } from "@src/core/editorContext";
 import { Logger } from "@src/core/logger";
 import { use } from "@src/core/plugin";
 import { builtin } from "./plugins/builtin";
 import { MDEditor } from "./MDEditor";
 
-class MDEditorCustomElement extends HTMLElement implements MDEditorElement {
+export interface MDEditorElementInternal extends IMDEditorElement {
+  _editorContext: EditorContext;
+}
+
+class MDEditorElement extends HTMLElement implements MDEditorElementInternal {
   #renderRoot: ShadowRoot;
   #styleSheet: HTMLStyleElement;
   #container: HTMLDivElement;
-  #subscriptionList: Subscription[] = [];
+  #subscriptions: Subscription[] = [];
+  _editorContext: EditorContext;
 
   constructor() {
     super();
-    this.#renderRoot = this.attachShadow({ mode: "open" });
+    this.#renderRoot = this.attachShadow({ mode: "closed" });
     this.#styleSheet = document.createElement("style");
     this.#container = document.createElement("div");
     this.#renderRoot.appendChild(this.#styleSheet);
     this.#renderRoot.appendChild(this.#container);
+    this._editorContext = createEditorContext();
   }
 
   connectedCallback() {
-    this.styled();
-    render(<MDEditor />, this.#container);
-
-    this.#subscriptionList.push(
+    this.#subscriptions.push(
       fromEvent<KeyboardEvent>(this.#container, "keydown").subscribe(
         (event) => {
           Logger.debug(`
@@ -39,13 +47,13 @@ class MDEditorCustomElement extends HTMLElement implements MDEditorElement {
         }
       )
     );
+
+    this.styled();
+    render(<MDEditor />, this.#container);
   }
 
   disconnectedCallback() {
-    this.#subscriptionList.forEach((subscription) =>
-      subscription.unsubscribe()
-    );
-    this.#subscriptionList = [];
+    this.#subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   styled() {
@@ -77,4 +85,4 @@ class MDEditorCustomElement extends HTMLElement implements MDEditorElement {
 }
 
 use(...builtin());
-customElements.define("md-editor", MDEditorCustomElement);
+customElements.define("md-editor", MDEditorElement);

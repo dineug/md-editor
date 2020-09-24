@@ -10,6 +10,7 @@ export class Heading implements ContainerEditor<HeadingProps> {
   #editorElement: HTMLInputElement;
   #level: number;
   #text: string;
+  #edit = false;
 
   constructor(props: HeadingProps) {
     this.#level = props.level;
@@ -22,10 +23,12 @@ export class Heading implements ContainerEditor<HeadingProps> {
   }
 
   viewer() {
+    this.#edit = false;
     this.#viewerElement.textContent = this.#text;
     return this.#viewerElement;
   }
   editor() {
+    this.#edit = true;
     this.#editorElement.value = this.#text;
     return this.#editorElement;
   }
@@ -34,6 +37,11 @@ export class Heading implements ContainerEditor<HeadingProps> {
       level: this.#level,
       text: this.#text,
     };
+  }
+  mounted() {
+    if (this.#edit) {
+      this.#editorElement.focus();
+    }
   }
 }
 

@@ -4,6 +4,7 @@ export class Paragraph implements ContainerEditor<string> {
   #viewerElement: HTMLParagraphElement;
   #editorElement: HTMLInputElement;
   #value: string;
+  #edit = false;
 
   constructor(value: string) {
     this.#value = value;
@@ -13,18 +14,22 @@ export class Paragraph implements ContainerEditor<string> {
   }
 
   viewer() {
+    this.#edit = false;
     this.#viewerElement.textContent = this.#value;
     return this.#viewerElement;
   }
   editor() {
+    this.#edit = true;
     this.#editorElement.value = this.#value;
-    setTimeout(() => {
-      this.#editorElement.focus();
-    }, 0);
     return this.#editorElement;
   }
   save() {
     return this.#value;
+  }
+  mounted() {
+    if (this.#edit) {
+      this.#editorElement.focus();
+    }
   }
 }
 

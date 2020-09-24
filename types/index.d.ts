@@ -15,6 +15,7 @@ export interface ContainerEditor<T = any> {
   viewer(): HTMLElement;
   editor(): HTMLElement;
   save(): T;
+  mounted?(): void;
 }
 
 export interface ContainerEditorClass<T = any> {
@@ -43,4 +44,18 @@ export interface ContainerEditorData {
 
 export interface EditorData {
   containers: Array<ContainerEditorData>;
+}
+
+declare function use<T>(...options: Array<ContainerEditorOptions<T>>): void;
+
+export interface EventBus {
+  on<T = any>(
+    eventName: string,
+    handler: (event: CustomEvent<T>) => void
+  ): () => void;
+  emit<T = any>(eventName: string, detail?: T): void;
+}
+
+export interface EditorContext {
+  eventBus: EventBus;
 }

@@ -1,21 +1,27 @@
-import { h } from "preact";
+import { h, FunctionalComponent } from "preact";
 import { useRef, useEffect } from "preact/hooks";
 import { ContainerEditorInstance } from "@type/index";
 import { Logger } from "@src/core/logger";
 
-export function Container(props: ContainerEditorInstance) {
+export const Container: FunctionalComponent<ContainerEditorInstance> = ({
+  edit,
+  container,
+}) => {
   Logger.debug("Container");
-  const root = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     Logger.debug("Container useEffect");
-    root.current.innerHTML = "";
-    if (props.edit) {
-      root.current.appendChild(props.container.editor());
+    rootRef.current.innerHTML = "";
+    if (edit) {
+      rootRef.current.appendChild(container.editor());
     } else {
-      root.current.appendChild(props.container.viewer());
+      rootRef.current.appendChild(container.viewer());
     }
-  }, [props.edit]);
+    if (container.mounted) {
+      container.mounted();
+    }
+  }, [edit]);
 
-  return <div ref={root} />;
-}
+  return <div ref={rootRef} />;
+};

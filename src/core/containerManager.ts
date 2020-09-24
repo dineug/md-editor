@@ -10,36 +10,36 @@ export function useContainerManager() {
     []
   );
 
-  const pushContainer = (container: ContainerEditor) => {
+  const pushContainer = (...containers: Array<ContainerEditor>) => {
     setContainers((prevContainers) => {
       prevContainers.forEach((prevContainer) => (prevContainer.edit = false));
       return [
         ...prevContainers,
-        {
+        ...containers.map((container, index) => ({
           id: uuid(),
           container,
-          edit: true,
-        },
+          edit: containers.length === index + 1,
+        })),
       ];
     });
   };
 
-  const pushOnlyContainer = (container: ContainerEditor) => {
+  const pushOnlyContainer = (...containers: Array<ContainerEditor>) => {
     setContainers((prevContainers) => [
       ...prevContainers,
-      {
+      ...containers.map((container) => ({
         id: uuid(),
         container,
         edit: false,
-      },
+      })),
     ]);
   };
 
   useEffect(() => {
     Logger.debug("useContainerManager useEffect");
-    const container = getEditor("Paragraph");
-    if (container) {
-      pushContainer(new container.editor(container.defaultProps()));
+    const options = getEditor("Paragraph");
+    if (options) {
+      pushContainer(new options.editor(options.defaultProps()));
     }
   }, []);
 
