@@ -23,18 +23,18 @@
   "author": "dineug <dineug2@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@rollup/plugin-strip": "^2.0.0",
     "@rollup/plugin-typescript": "^6.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.1.1",
-    "@typescript-eslint/parser": "^4.1.1",
+    "@typescript-eslint/eslint-plugin": "^4.2.0",
+    "@typescript-eslint/parser": "^4.2.0",
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react-hooks": "^4.1.2",
     "prettier": "^2.1.2",
-    "rollup": "^2.27.1",
+    "rollup": "^2.28.2",
     "rollup-plugin-browsersync": "^1.1.0",
     "rollup-plugin-eslint": "^7.0.0",
     "rollup-plugin-generate-html-template": "^1.7.0",
@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "commonmark": "^0.29.2",
-    "preact": "^10.4.8",
+    "preact": "^10.5.2",
     "rxjs": "^6.6.3"
   }
 }
