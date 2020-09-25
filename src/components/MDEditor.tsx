@@ -6,6 +6,7 @@ import { getEditor } from "@src/core/plugin";
 import { getEditorContext } from "@src/core/editorContext";
 import { Container } from "./Container";
 import { useCommand } from "./Command";
+import { EditorName } from "./plugins/builtin";
 
 export const MDEditor: FunctionalComponent = () => {
   Logger.debug("MDEditor");
@@ -19,7 +20,7 @@ export const MDEditor: FunctionalComponent = () => {
     const editorContext = getEditorContext(rootRef.current);
     const { eventBus } = editorContext;
 
-    const options = getEditor("Paragraph");
+    const options = getEditor(EditorName.Paragraph);
     if (options) {
       pushContainer(new options.editor(options.defaultProps(), editorContext));
     }
