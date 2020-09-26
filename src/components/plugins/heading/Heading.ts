@@ -10,34 +10,32 @@ export class Heading implements ContainerEditor<HeadingProps> {
   #viewerElement: HTMLHeadingElement;
   #editorElement: HTMLInputElement;
   #level: number;
-  #text: string;
   #edit = false;
 
   constructor(props: HeadingProps, api: EditorContext) {
     this.#api = api;
     this.#level = props.level;
-    this.#text = props.text;
     this.#viewerElement = document.createElement(
       `h${props.level}`
     ) as HTMLHeadingElement;
     this.#editorElement = document.createElement("input");
+    this.#editorElement.value = props.text;
     headingStyle(this.#editorElement, props.level);
   }
 
   viewer() {
     this.#edit = false;
-    this.#viewerElement.textContent = this.#text;
+    this.#viewerElement.textContent = this.#editorElement.value;
     return this.#viewerElement;
   }
   editor() {
     this.#edit = true;
-    this.#editorElement.value = this.#text;
     return this.#editorElement;
   }
   save() {
     return {
       level: this.#level,
-      text: this.#text,
+      text: this.#editorElement.value,
     };
   }
   mounted() {

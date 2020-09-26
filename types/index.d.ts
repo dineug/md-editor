@@ -1,6 +1,8 @@
 import { CommandMap } from "./command";
 
 export interface MDEditorElement extends HTMLElement {
+  width: number;
+  height: number;
   loadJson(json: EditorData): void;
   saveJson(): EditorData;
   loadMarkdown(markdown: string): void;
@@ -53,11 +55,11 @@ export function use<T>(...options: Array<ContainerEditorOptions<T>>): void;
 export interface EventBus {
   on<K extends keyof CommandMap>(
     name: K,
-    callback: (data: CommandMap[K]) => void
+    listener: (data: CommandMap[K]) => void
   ): () => void;
-  on<T = any>(name: string, callback: (data: T) => void): () => void;
-  dispatch<K extends keyof CommandMap>(name: K, data: CommandMap[K]): void;
-  dispatch<T = any>(name: string, data?: T): void;
+  on<T = any>(name: string, listener: (data: T) => void): () => void;
+  emit<K extends keyof CommandMap>(name: K, data: CommandMap[K]): void;
+  emit<T = any>(name: string, data?: T): void;
 }
 
 export interface EditorContext {

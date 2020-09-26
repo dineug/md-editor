@@ -4,29 +4,27 @@ export class Paragraph implements ContainerEditor<string> {
   #api: EditorContext;
   #viewerElement: HTMLParagraphElement;
   #editorElement: HTMLInputElement;
-  #value: string;
   #edit = false;
 
   constructor(value: string, api: EditorContext) {
     this.#api = api;
-    this.#value = value;
     this.#viewerElement = document.createElement("p");
     this.#editorElement = document.createElement("input");
+    this.#editorElement.value = value;
     paragraphStyle(this.#editorElement);
   }
 
   viewer() {
     this.#edit = false;
-    this.#viewerElement.textContent = this.#value;
+    this.#viewerElement.textContent = this.#editorElement.value;
     return this.#viewerElement;
   }
   editor() {
     this.#edit = true;
-    this.#editorElement.value = this.#value;
     return this.#editorElement;
   }
   save() {
-    return this.#value;
+    return this.#editorElement.value;
   }
   mounted() {
     if (this.#edit) {

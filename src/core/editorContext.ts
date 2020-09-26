@@ -1,10 +1,10 @@
 import { EditorContext } from "@type/index";
 import { MDEditorElementInternal as MDEditorElement } from "@src/components/MDEditorElement";
-import { EventBus } from "./eventHelper";
+import { createEventBus } from "./eventHelper";
 
 export function createEditorContext(): EditorContext {
   return {
-    eventBus: new EventBus(),
+    eventBus: createEventBus(),
   };
 }
 

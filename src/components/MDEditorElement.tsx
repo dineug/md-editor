@@ -11,16 +11,45 @@ import { use } from "@src/core/plugin";
 import { builtin } from "./plugins/builtin";
 import { MDEditor } from "./MDEditor";
 
+const DEFAULT_WIDTH = 708;
+const DEFAULT_HEIGHT = 800;
+
 export interface MDEditorElementInternal extends IMDEditorElement {
   _editorContext: EditorContext;
 }
 
 class MDEditorElement extends HTMLElement implements MDEditorElementInternal {
+  _editorContext: EditorContext;
   #renderRoot: ShadowRoot;
   #styleSheet: HTMLStyleElement;
   #container: HTMLDivElement;
   #subscriptions: Array<Subscription> = [];
-  _editorContext: EditorContext;
+  #width = DEFAULT_WIDTH;
+  #height = DEFAULT_HEIGHT;
+  #isMounted = false;
+  #isUpdate = false;
+
+  static get observedAttributes() {
+    return ["width", "height"];
+  }
+
+  get width(): number {
+    return this.#width;
+  }
+  set width(value: number) {
+    this.#width = value;
+    this.reflectAttributes();
+    this.requestUpdate();
+  }
+
+  get height(): number {
+    return this.#height;
+  }
+  set height(value: number) {
+    this.#height = value;
+    this.reflectAttributes();
+    this.requestUpdate();
+  }
 
   constructor() {
     super();
@@ -33,6 +62,7 @@ class MDEditorElement extends HTMLElement implements MDEditorElementInternal {
   }
 
   connectedCallback() {
+    this.#isMounted = true;
     this.#subscriptions.push(
       fromEvent<KeyboardEvent>(this.#container, "keydown").subscribe(
         (event) => {
@@ -48,15 +78,56 @@ class MDEditorElement extends HTMLElement implements MDEditorElementInternal {
       )
     );
 
+    this.reflectAttributes();
     this.styled();
-    render(<MDEditor />, this.#container);
+    this.render();
+  }
+
+  attributeChangedCallback(name: string, _: any, value: any) {
+    switch (name) {
+      case "width":
+        const width = Number(value);
+        if (width !== NaN && this.width !== width) {
+          this.width = width;
+        }
+        break;
+      case "height":
+        const height = Number(value);
+        if (height !== NaN && this.height !== height) {
+          this.height = height;
+        }
+        break;
+    }
   }
 
   disconnectedCallback() {
+    this.#isMounted = false;
     this.#subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  styled() {
+  private reflectAttributes() {
+    if (this.#isMounted) {
+      const width = this.getAttribute("width");
+      const height = this.getAttribute("height");
+      if (width !== this.width.toString()) {
+        this.setAttribute("width", this.width.toString());
+      }
+      if (height !== this.height.toString()) {
+        this.setAttribute("height", this.height.toString());
+      }
+    }
+  }
+
+  private requestUpdate() {
+    if (!this.#isUpdate) {
+      this.#isUpdate = true;
+      Promise.resolve()
+        .then(() => this.render())
+        .finally(() => (this.#isUpdate = false));
+    }
+  }
+
+  private styled() {
     const styled = /*css*/ `
       .mde-container {
         position: relative;
@@ -69,6 +140,13 @@ class MDEditorElement extends HTMLElement implements MDEditorElementInternal {
       }
     `;
     this.#styleSheet.textContent = styled;
+  }
+
+  private render() {
+    render(
+      <MDEditor width={this.width} height={this.height} />,
+      this.#container
+    );
   }
 
   loadJson(json: EditorData) {

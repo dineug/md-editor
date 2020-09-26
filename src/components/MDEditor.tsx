@@ -8,7 +8,17 @@ import { Container } from "./Container";
 import { useCommand } from "./Command";
 import { EditorName } from "./plugins/builtin";
 
-export const MDEditor: FunctionalComponent = () => {
+type Unsubscribe = () => void;
+
+interface MDEditorProps {
+  width: number;
+  height: number;
+}
+
+export const MDEditor: FunctionalComponent<MDEditorProps> = ({
+  width,
+  height,
+}) => {
   Logger.debug("MDEditor");
   const rootRef = useRef<HTMLDivElement>(null);
   const { containers, pushContainer } = useContainerManager();
@@ -16,7 +26,7 @@ export const MDEditor: FunctionalComponent = () => {
 
   useEffect(() => {
     Logger.debug("MDEditor useEffect");
-    const unsubscribes: Array<() => void> = [];
+    const unsubscribes: Array<Unsubscribe> = [];
     const editorContext = getEditorContext(rootRef.current);
     const { eventBus } = editorContext;
 
@@ -41,7 +51,7 @@ export const MDEditor: FunctionalComponent = () => {
   }, []);
 
   return (
-    <div ref={rootRef}>
+    <div ref={rootRef} style={{ width, height }}>
       {containers.map((container) => (
         <Container key={container.id} {...container}></Container>
       ))}
