@@ -22,7 +22,7 @@ export function createEventBus(): EventBus {
   };
 
   const dispatch = (...commands: Array<CommandTypeAny>) => {
-    commands.forEach((command) => emit(command.name, command.data));
+    commands.forEach(({ name, data }) => emit(name, data));
   };
 
   return {

@@ -9,6 +9,7 @@ import { createEditorContext } from "@src/core/editorContext";
 import { Logger } from "@src/core/logger";
 import { use } from "@src/core/plugin";
 import { builtin } from "./plugins/builtin";
+import { builtinCSS } from "./css/builtin";
 import { MDEditor } from "./MDEditor";
 
 const DEFAULT_WIDTH = 708;
@@ -132,23 +133,7 @@ class MDEditorElement extends HTMLElement implements MDEditorElementInternal {
   }
 
   private styled() {
-    const styled = /*css*/ `
-      .mde-text-width {
-        visibility: hidden;
-        position: fixed;
-        top: -100px;
-        font: unset;
-      }
-      .mde-command {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        position: fixed;
-      }
-      .mde-container {
-        position: relative;
-      }
-    `;
+    const styled = /*css*/ `${builtinCSS}`;
     this.#styleSheet.textContent = styled;
   }
 
