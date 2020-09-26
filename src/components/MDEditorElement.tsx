@@ -23,6 +23,7 @@ class MDEditorElement extends HTMLElement implements MDEditorElementInternal {
   #renderRoot: ShadowRoot;
   #styleSheet: HTMLStyleElement;
   #container: HTMLDivElement;
+  #textWidth: HTMLSpanElement;
   #subscriptions: Array<Subscription> = [];
   #width = DEFAULT_WIDTH;
   #height = DEFAULT_HEIGHT;
@@ -56,8 +57,11 @@ class MDEditorElement extends HTMLElement implements MDEditorElementInternal {
     this.#renderRoot = this.attachShadow({ mode: "closed" });
     this.#styleSheet = document.createElement("style");
     this.#container = document.createElement("div");
+    this.#textWidth = document.createElement("span");
+    this.#textWidth.classList.add("mde-text-width");
     this.#renderRoot.appendChild(this.#styleSheet);
     this.#renderRoot.appendChild(this.#container);
+    this.#renderRoot.appendChild(this.#textWidth);
     this._editorContext = createEditorContext();
   }
 
@@ -129,14 +133,20 @@ class MDEditorElement extends HTMLElement implements MDEditorElementInternal {
 
   private styled() {
     const styled = /*css*/ `
-      .mde-container {
-        position: relative;
+      .mde-text-width {
+        visibility: hidden;
+        position: fixed;
+        top: -100px;
+        font: unset;
       }
       .mde-command {
         list-style: none;
         padding: 0;
         margin: 0;
         position: fixed;
+      }
+      .mde-container {
+        position: relative;
       }
     `;
     this.#styleSheet.textContent = styled;

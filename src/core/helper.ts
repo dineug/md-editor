@@ -25,3 +25,13 @@ export function uuid(): string {
     s4(),
   ].join("");
 }
+
+export function getCaretRect(el: HTMLElement): DOMRect {
+  const renderRoot = el.getRootNode() as ShadowRoot;
+  const sel = renderRoot.getSelection();
+  if (sel?.rangeCount) {
+    const range = sel.getRangeAt(0).cloneRange();
+    return range.getBoundingClientRect();
+  }
+  return el.getBoundingClientRect();
+}

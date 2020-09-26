@@ -34,22 +34,28 @@ export function useCommand() {
 
   return {
     Command: () => (state.show ? <Command x={state.x} y={state.y} /> : <></>),
-    moveCommand: (data: CommandProps) => {
-      setState({
-        ...state,
-        ...data,
+    moveCommand(data: CommandProps) {
+      setState((prevState) => {
+        return {
+          ...prevState,
+          ...data,
+        };
       });
     },
-    showCommand: () => {
-      setState({
-        ...state,
-        show: true,
+    showCommand() {
+      setState((prevState) => {
+        return {
+          ...prevState,
+          show: true,
+        };
       });
     },
-    hideCommand: () => {
-      setState({
-        ...state,
-        show: false,
+    hideCommand() {
+      setState((prevState) => {
+        return {
+          ...prevState,
+          show: false,
+        };
       });
     },
   };

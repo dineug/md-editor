@@ -12,11 +12,12 @@ export const Container: FunctionalComponent<ContainerEditorInstance> = ({
 
   useEffect(() => {
     Logger.debug("Container useEffect");
-    rootRef.current.innerHTML = "";
+    const { current } = rootRef;
+    current.innerHTML = "";
     if (edit) {
-      rootRef.current.appendChild(container.editor());
+      current.appendChild(container.editor());
     } else {
-      rootRef.current.appendChild(container.viewer());
+      current.appendChild(container.viewer());
     }
     if (container.mounted) {
       container.mounted();

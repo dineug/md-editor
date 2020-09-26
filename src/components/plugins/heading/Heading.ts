@@ -8,7 +8,7 @@ export interface HeadingProps {
 export class Heading implements ContainerEditor<HeadingProps> {
   #api: EditorContext;
   #viewerElement: HTMLHeadingElement;
-  #editorElement: HTMLInputElement;
+  #editorElement: HTMLDivElement;
   #level: number;
   #edit = false;
 
@@ -18,14 +18,16 @@ export class Heading implements ContainerEditor<HeadingProps> {
     this.#viewerElement = document.createElement(
       `h${props.level}`
     ) as HTMLHeadingElement;
-    this.#editorElement = document.createElement("input");
-    this.#editorElement.value = props.text;
+    this.#editorElement = document.createElement("div");
+    this.#editorElement.contentEditable = "true";
+    this.#editorElement.textContent = props.text;
     headingStyle(this.#editorElement, props.level);
+    this.initEvent();
   }
 
   viewer() {
     this.#edit = false;
-    this.#viewerElement.textContent = this.#editorElement.value;
+    this.#viewerElement.textContent = this.#editorElement.textContent;
     return this.#viewerElement;
   }
   editor() {
@@ -35,7 +37,7 @@ export class Heading implements ContainerEditor<HeadingProps> {
   save() {
     return {
       level: this.#level,
-      text: this.#editorElement.value,
+      text: this.#editorElement.textContent as string,
     };
   }
   mounted() {
@@ -43,9 +45,17 @@ export class Heading implements ContainerEditor<HeadingProps> {
       this.#editorElement.focus();
     }
   }
+
+  private initEvent() {
+    this.#editorElement.addEventListener("keydown", (event) => {
+      if (event.code === "Enter") {
+        event.preventDefault();
+      }
+    });
+  }
 }
 
-function headingStyle(el: HTMLInputElement, level: number) {
+function headingStyle(el: HTMLElement, level: number) {
   const { style } = el;
   el.spellcheck = false;
   style.outline = "none";

@@ -20,6 +20,7 @@ export interface ContainerEditor<T = any> {
   editor(): HTMLElement;
   save(): T;
   mounted?(): void;
+  destroy?(): void;
 }
 
 export interface ContainerEditorClass<T = any> {

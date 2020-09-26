@@ -20,5 +20,5 @@ export function getEditor(
 }
 
 export function getEditors(): Array<ContainerEditorOptionsInternal> {
-  return editors;
+  return [...editors];
 }
