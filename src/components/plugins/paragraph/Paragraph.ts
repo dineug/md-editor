@@ -1,5 +1,6 @@
 import { ContainerEditor, EditorContext } from "@type/index";
 import { getCaretRect } from "@src/core/helper";
+import { moveCommand, showCommand } from "@src/core/command/command";
 
 export class Paragraph implements ContainerEditor<string> {
   #api: EditorContext;
@@ -45,11 +46,13 @@ export class Paragraph implements ContainerEditor<string> {
       if (event.code === "Slash") {
         const { eventBus } = this.#api;
         const rect = getCaretRect(this.#editorElement);
-        eventBus.emit("mde.command.move", {
-          x: rect.x,
-          y: rect.bottom,
-        });
-        eventBus.emit("mde.command.show");
+        eventBus.dispatch(
+          moveCommand({
+            x: rect.x,
+            y: rect.bottom,
+          }),
+          showCommand()
+        );
       }
     });
   }

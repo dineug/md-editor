@@ -1,4 +1,4 @@
-import { CommandMap } from "./command";
+import { EventBus } from "./event";
 
 export interface MDEditorElement extends HTMLElement {
   width: number;
@@ -52,16 +52,6 @@ export interface EditorData {
 }
 
 export function use<T>(...options: Array<ContainerEditorOptions<T>>): void;
-
-export interface EventBus {
-  on<K extends keyof CommandMap>(
-    name: K,
-    listener: (data: CommandMap[K]) => void
-  ): () => void;
-  on<T = any>(name: string, listener: (data: T) => void): () => void;
-  emit<K extends keyof CommandMap>(name: K, data: CommandMap[K]): void;
-  emit<T = any>(name: string, data?: T): void;
-}
 
 export interface EditorContext {
   eventBus: EventBus;

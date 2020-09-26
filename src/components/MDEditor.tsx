@@ -1,5 +1,6 @@
 import { h, FunctionalComponent } from "preact";
 import { useRef, useEffect } from "preact/hooks";
+import { Unsubscribe } from "@type/event";
 import { Logger } from "@src/core/logger";
 import { useContainerManager } from "@src/core/containerManager";
 import { getEditor } from "@src/core/plugin";
@@ -7,8 +8,6 @@ import { getEditorContext } from "@src/core/editorContext";
 import { Container } from "./Container";
 import { useCommand } from "./Command";
 import { EditorName } from "./plugins/builtin";
-
-type Unsubscribe = () => void;
 
 interface MDEditorProps {
   width: number;

@@ -1,6 +1,6 @@
 import { EditorContext } from "@type/index";
 import { MDEditorElementInternal as MDEditorElement } from "@src/components/MDEditorElement";
-import { createEventBus } from "./eventHelper";
+import { createEventBus } from "./event";
 
 export function createEditorContext(): EditorContext {
   return {
