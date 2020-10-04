@@ -1,5 +1,6 @@
 import { h, Fragment, FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
+import { MoveCommand } from "@type/command/command";
 import { ContainerEditorOptions } from "@src/internal-types";
 import { Logger } from "@src/core/logger";
 import { getEditors } from "@src/core/plugin";
@@ -44,7 +45,7 @@ export function useCommand() {
       ) : (
         <></>
       ),
-    moveCommand(data: CommandProps) {
+    moveCommand(data: MoveCommand) {
       setState((prevState) => {
         return {
           ...prevState,
