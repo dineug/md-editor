@@ -1,10 +1,7 @@
 import { h, render } from "preact";
 import { fromEvent, Subscription } from "rxjs";
-import {
-  MDEditorElement as IMDEditorElement,
-  EditorData,
-  EditorContext,
-} from "@type/index";
+import { EditorData, EditorContext } from "@type/index";
+import { MDEditorElement as MDEditorElementInternal } from "@src/internal-types";
 import { createEditorContext } from "@src/core/editorContext";
 import { Logger } from "@src/core/logger";
 import { use } from "@src/core/plugin";
@@ -14,10 +11,6 @@ import { MDEditor } from "./MDEditor";
 
 const DEFAULT_WIDTH = 708;
 const DEFAULT_HEIGHT = 800;
-
-export interface MDEditorElementInternal extends IMDEditorElement {
-  _editorContext: EditorContext;
-}
 
 class MDEditorElement extends HTMLElement implements MDEditorElementInternal {
   _editorContext: EditorContext;
@@ -144,7 +137,7 @@ class MDEditorElement extends HTMLElement implements MDEditorElementInternal {
     );
   }
 
-  loadJson(json: EditorData) {
+  loadJson(json: EditorData | string) {
     // TODO: loadJson
     Logger.debug("loadJson", json);
   }

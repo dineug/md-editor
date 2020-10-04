@@ -1,6 +1,10 @@
 import { ContainerEditor, EditorContext } from "@type/index";
-import { getCaretRect } from "@src/core/helper";
-import { moveCommand, showCommand } from "@src/core/command/command";
+import { getCaretRect, getSlashKeyword } from "@src/core/helper";
+import {
+  moveCommand,
+  showCommand,
+  filterCommand,
+} from "@src/core/command/command";
 
 export class Paragraph implements ContainerEditor<string> {
   #api: EditorContext;
@@ -43,9 +47,12 @@ export class Paragraph implements ContainerEditor<string> {
       }
     });
     this.#editorElement.addEventListener("keyup", (event) => {
+      const { eventBus } = this.#api;
+      const keyword = getSlashKeyword(this.#editorElement.innerText);
+
       if (event.code === "Slash") {
-        const { eventBus } = this.#api;
         const rect = getCaretRect(this.#editorElement);
+
         eventBus.dispatch(
           moveCommand({
             x: rect.x,
@@ -53,6 +60,10 @@ export class Paragraph implements ContainerEditor<string> {
           }),
           showCommand()
         );
+      }
+
+      if (keyword) {
+        eventBus.dispatch(filterCommand(keyword));
       }
     });
   }

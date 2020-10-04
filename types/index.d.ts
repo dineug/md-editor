@@ -3,7 +3,7 @@ import { EventBus } from "./event";
 export interface MDEditorElement extends HTMLElement {
   width: number;
   height: number;
-  loadJson(json: EditorData): void;
+  loadJson(json: EditorData | string): void;
   saveJson(): EditorData;
   loadMarkdown(markdown: string): void;
   saveMarkdown(): string;

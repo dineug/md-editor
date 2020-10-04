@@ -35,3 +35,12 @@ export function getCaretRect(el: HTMLElement): DOMRect {
   }
   return el.getBoundingClientRect();
 }
+
+export function getSlashKeyword(text: string): string | null {
+  const keywords = text.match(/(\/.\w+|\/)/gi);
+  if (keywords && keywords.length) {
+    const keyword = keywords[keywords.length - 1];
+    return keyword.substring(1).trim();
+  }
+  return null;
+}

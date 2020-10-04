@@ -1,24 +1,19 @@
-import { ContainerEditorOptions } from "@type/index";
+import { ContainerEditorOptions as ContainerEditorOptionsExternal } from "@type/index";
+import { ContainerEditorOptions } from "@src/internal-types";
 import { uuid } from "./helper";
 
-interface ContainerEditorOptionsInternal extends ContainerEditorOptions {
-  id: string;
-}
+const editors: Array<ContainerEditorOptions> = [];
 
-const editors: Array<ContainerEditorOptionsInternal> = [];
-
-export function use<T>(...options: Array<ContainerEditorOptions<T>>) {
+export function use<T>(...options: Array<ContainerEditorOptionsExternal<T>>) {
   editors.push(
     ...options.map((option) => Object.assign(option, { id: uuid() }))
   );
 }
 
-export function getEditor(
-  name: string
-): ContainerEditorOptionsInternal | undefined {
+export function getEditor(name: string): ContainerEditorOptions | undefined {
   return editors.find((editor) => editor.name === name);
 }
 
-export function getEditors(): Array<ContainerEditorOptionsInternal> {
+export function getEditors(): Array<ContainerEditorOptions> {
   return [...editors];
 }

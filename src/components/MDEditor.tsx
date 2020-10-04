@@ -21,7 +21,13 @@ export const MDEditor: FunctionalComponent<MDEditorProps> = ({
   Logger.debug("MDEditor");
   const rootRef = useRef<HTMLDivElement>(null);
   const { containers, pushContainer } = useContainerManager();
-  const { Command, moveCommand, showCommand, hideCommand } = useCommand();
+  const {
+    Command,
+    moveCommand,
+    showCommand,
+    hideCommand,
+    filterCommand,
+  } = useCommand();
 
   useEffect(() => {
     Logger.debug("MDEditor useEffect");
@@ -43,6 +49,9 @@ export const MDEditor: FunctionalComponent<MDEditorProps> = ({
       }),
       eventBus.on("mde.command.hide", () => {
         hideCommand();
+      }),
+      eventBus.on("mde.command.filter", (data) => {
+        filterCommand(data.keyword);
       })
     );
 
